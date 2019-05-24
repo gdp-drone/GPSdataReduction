@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-
+import math
 
 import sys
 
@@ -14,5 +14,14 @@ array = np.hsplit(array,3)
 arLong = array[0].reshape(1,-1)[0]
 arLati = array[1].reshape(1,-1)[0]
 
-plt.plot(arLong,arLati,'ro')
+arRad = np.sqrt(arLong*arLong+arLati*arLati)
+
+
+plt.hist(arRad, bins=40)
+plt.ylabel("Radius Distribution from mean")
 plt.show()
+
+"""
+plt.plot(i,arRad,'ro')
+plt.show()
+"""

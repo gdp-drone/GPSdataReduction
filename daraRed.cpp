@@ -9,15 +9,18 @@
 using namespace std;
 using namespace GeographicLib;
 
-int main()
+int main(int argc, char *argv[])
 {
 	try 
 	{
 		Geocentric earth(Constants::WGS84_a(), Constants::WGS84_f());
 		fstream infile;
 		fstream outfile;
-		string inname="gpsDataS1.txt";
-		string outname="reducedS1.txt";
+		cout << argv[1]<<endl;
+		string inname="data/gpsData";
+		inname.append(argv[1]);
+		string outname="data/reduced";
+		outname.append(argv[1]);
 		string line;
 		infile.open(inname, fstream::in);
 		outfile.open(outname, fstream::out | fstream::trunc);
@@ -57,17 +60,19 @@ int main()
 				numData++;
 			}
 
-			cout << line <<endl;
+			//cout << line <<endl;
 
 		}
 		outfile.close();
 		infile.close();
 		infile.open(outname, fstream::in);
-		outfile.open("localizedS1.txt", fstream::out | fstream::trunc);
-		 double* longAr = new double[numData];
-		 double* latiAr = new double[numData];
+		outname = "data/localized";
+		outname.append(argv[1]);
+		outfile.open(outname, fstream::out | fstream::trunc);
+		double* longAr = new double[numData];
+		double* latiAr = new double[numData];
 		double* altiAr = new double[numData];
-		 double latiMean, longMean;
+		double latiMean, longMean;
 		latiMean = 0;
 		longMean = 0;
 		for (int j=0; j<(numData-1);j++)
